@@ -19,18 +19,32 @@ namespace ds {
 	} 
 
 	namespace ui {
+	
+	ShaderSprite::ShaderSprite( SpriteEngine &engine, float w, float h )
+		: Sprite(engine, w, h)
+	{
+		//Sprite::setSizeAll( w, h, mDepth );
+	}
+	
+	/*ShaderSprite::ShaderSprite( SpriteEngine& engine, const std::string &filename )
+    : Sprite(engine, filename)
+	{}
+	*/
+
 	void ShaderSprite::drawLocalClient() {
-		ci::gl::GlslProg shaderBase = mSpriteShader.getShader();
+		ci::gl::GlslProg &shaderBase = mSpriteShader.getShader();
 		if (shaderBase) {
 			shaderBase.bind();
-			shaderBase.uniform("tex0", 0);
-			shaderBase.uniform("useTexture", mUseShaderTexture);
-			shaderBase.uniform("preMultiply", premultiplyAlpha(mBlendMode));
-			onBindShaders( shaderBase );
+			onBindShader( shaderBase );
 		}
-		}
+		Sprite::drawLocalClient();
+	}
 
 	void ShaderSprite::onBindShader( ci::gl::GlslProg &shader ) {
+	}
+
+	cinder::gl::GlslProg * ShaderSprite::getShader() {
+		return &getBaseShader().getShader();
 	}
 
 	} // namespace ui

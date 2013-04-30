@@ -17,6 +17,7 @@
 #include "cinder/app/KeyEvent.h"
 #include "cinder/Timeline.h"
 #include "cinder/Color.h"
+#include "cinder/gl/GlslProg.h"
 #include "ds/ui/tween/sprite_anim.h"
 #include "ds/ui/sprite/sprite.h"
 #include "ds/ui/sprite/image.h"
@@ -42,8 +43,9 @@
 %feature("director") cinder::app::AppBasic;
 %feature("director") ds::App;
 %feature("director") ds::ui::Sprite;
+%feature("director") ds::ui::Image;
+%feature("director") ds::ui::ShaderSprite;
 
-%import "ds/ui/sprite/shader/sprite_shader.h"
 %import "ds/ui/sprite/util/blend.h"
 %import "ds/ui/sprite/dirty_state.h"
 %include "ds/util/bit_mask.h"
@@ -51,6 +53,7 @@
 %include "cinder/app/Event.h"
 %include "cinder/app/KeyEvent.h"
 %include "cinder/app/MouseEvent.h"
+%include "ds/ui/sprite/shader/sprite_shader.h"
 
 %ignore cinder::ColorT::operator=;
 %ignore cinder::ColorT::operator[];
@@ -140,6 +143,47 @@ class AppBasic : public cinder::app::App {
 };
 
 } } //namespace app, cinder
+
+//%rename(to_unspecified_bool_type) "cinder::gl::GlslProg::operator unspecified_bool_type";
+// %include "cinder/gl/GlslProg.h"
+namespace cinder { namespace gl {
+class GlslProg {
+  public: 
+	GlslProg() {}
+	GlslProg( DataSourceRef vertexShader, DataSourceRef fragmentShader = DataSourceRef(), DataSourceRef geometryShader = DataSourceRef(), 
+        GLint geometryInputType = GL_POINTS, GLint geometryOutputType = GL_TRIANGLES, GLint geometryOutputVertices = 0);
+    
+	GlslProg( const char *vertexShader, const char *fragmentShader = 0, const char *geometryShader = 0, GLint geometryInputType = GL_POINTS, GLint geometryOutputType = GL_TRIANGLES, GLint geometryOutputVertices = 0);
+
+	void			bind() const;
+	static void		unbind();
+
+	GLuint			getHandle() const { return mObj->mHandle; }
+
+	void	uniform( const std::string &name, int data );
+	void	uniform( const std::string &name, const Vec2i &data );
+	void	uniform( const std::string &name, const int *data, int count );		
+	void	uniform( const std::string &name, const Vec2i *data, int count );	
+	void	uniform( const std::string &name, float data );
+	void	uniform( const std::string &name, const Vec2f &data );
+	void	uniform( const std::string &name, const Vec3f &data );
+	void	uniform( const std::string &name, const Vec4f &data );
+	void	uniform( const std::string &name, const Color &data );
+	void	uniform( const std::string &name, const ColorA &data );
+	void	uniform( const std::string &name, const Matrix33f &data, bool transpose = false );
+	void	uniform( const std::string &name, const Matrix44f &data, bool transpose = false );
+	void	uniform( const std::string &name, const float *data, int count );
+	void	uniform( const std::string &name, const Vec2f *data, int count );
+	void	uniform( const std::string &name, const Vec3f *data, int count );
+	void	uniform( const std::string &name, const Vec4f *data, int count );
+
+	GLint	getUniformLocation( const std::string &name );
+	GLint	getAttribLocation( const std::string &name );
+
+	std::string		getShaderLog( GLuint handle ) const;
+};
+} }
+
 
 
 //----------------------------------
@@ -268,6 +312,7 @@ namespace ds { namespace ui {
 %include "ds/ui/sprite/text.h"
 %include "ds/ui/sprite/multiline_text.h"
 %include "ds/ui/sprite/video.h"
+%include "ds/ui/sprite/shader/sprite_shader.h"
 %include "ds/ui/touch/multi_touch_constraints.h"
 
 %include "ds/ui/touch/touch_info.h"
