@@ -11,11 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(CINDER)\blocks\osc\include\OscArg.h" />
-    <ClInclude Include="$(CINDER)\blocks\osc\include\OscBundle.h" />
-    <ClInclude Include="$(CINDER)\blocks\osc\include\OscListener.h" />
-    <ClInclude Include="$(CINDER)\blocks\osc\include\OscMessage.h" />
-    <ClInclude Include="$(CINDER)\blocks\osc\include\OscSender.h" />
     <ClInclude Include="$(CINDER)\blocks\tuio\include\TuioClient.h" />
     <ClInclude Include="$(CINDER)\blocks\tuio\include\TuioCursor.h" />
     <ClInclude Include="$(CINDER)\blocks\tuio\include\TuioObject.h" />
@@ -177,6 +172,13 @@
     <ClCompile Include="$(CINDER)\blocks\osc\src\OscMessage.cpp" />
     <ClCompile Include="$(CINDER)\blocks\osc\src\OscSender.cpp" />
     <ClCompile Include="$(CINDER)\blocks\tuio\src\TuioClient.cpp" />
+    <ClCompile Include="$(CINDER)\blocks\OSC\src\osc\OscTypes.cpp" />
+    <ClCompile Include="$(CINDER)\blocks\OSC\src\ip\IpEndpointName.cpp" />
+    <ClCompile Include="$(CINDER)\blocks\OSC\src\ip\win32\NetworkingUtils.cpp" />
+    <ClCompile Include="$(CINDER)\blocks\OSC\src\ip\win32\UdpSocket.cpp" />
+    <ClCompile Include="$(CINDER)\blocks\OSC\src\osc\OscOutboundPacketStream.cpp" />
+    <ClCompile Include="$(CINDER)\blocks\OSC\src\osc\OscPrintReceivedElements.cpp" />
+    <ClCompile Include="$(CINDER)\blocks\OSC\src\osc\OscReceivedElements.cpp" />
     <ClCompile Include="..\lib\OGLFT\OGLFT.cpp" />
     <ClCompile Include="..\lib\paulhoux-Cinder-Awesomium\include\CinderAwesomium.cpp" />
     <ClCompile Include="..\src\ds\app\app.cpp" />
