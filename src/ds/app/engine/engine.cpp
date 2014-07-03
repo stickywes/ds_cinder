@@ -576,7 +576,7 @@ MouseEvent Engine::alteredMouseEvent(const MouseEvent& e) const {
 	// hopefully it always will be.
 	// Note that you CAN get to this if you want to interpret what's there. I *think* I saw that
 	// the newer version of cinder gave access so hopefully can just wait for that if we need it.
-	return ci::app::MouseEvent(	0, e.getX() + mMouseOffsetX, e.getY() + mMouseOffsetY,
+	return ci::app::MouseEvent::MouseEvent(e.getWindow(), 0, e.getX() + mMouseOffsetX, e.getY() + mMouseOffsetY,
 								0, e.getWheelIncrement(), e.getNativeModifiers());
 }
 
@@ -642,7 +642,7 @@ ci::app::MouseEvent offset_mouse_event(const ci::app::MouseEvent& e, const ci::R
 	// Note -- breaks the button and modifier checks, because cinder doesn't give me access to the raw data.
 	// Currently I believe that's fine -- and since our target is touch platforms without those things
 	// hopefully it always will be.
-	return ci::app::MouseEvent(	0, e.getX() + static_cast<int>(offset.x1), e.getY() + static_cast<int>(offset.y1),
+	return ci::app::MouseEvent( e.getWindow(), 0, e.getX() + static_cast<int>(offset.x1), e.getY() + static_cast<int>(offset.y1),
 								0, e.getWheelIncrement(), e.getNativeModifiers());
 }
 
