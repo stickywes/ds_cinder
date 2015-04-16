@@ -540,7 +540,6 @@ void GstVideo::setMovieLooping() {
 void GstVideo::unloadVideo(const bool clearFrame) {
 	mMovie.stop();
 	mMovie.close();
-	mFilename.clear();
 	if (clearFrame) {
 		mFrameTexture.reset();
 	}
